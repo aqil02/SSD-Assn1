@@ -56,7 +56,7 @@ namespace SSD_Assn
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Message}/{action=List}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

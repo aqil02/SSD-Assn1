@@ -1,0 +1,12 @@
+﻿@model IEnumerable<SSD_Assn.Models.Message> 
+<head>
+    <title>Forum Homepage</title>
+</head>
+@foreach (var p in Model)
+{
+    <div>
+        <h3>@p.title</h3>
+        <h4>@p.author</h4>
+    </div>
+
+}

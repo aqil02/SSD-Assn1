@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SSD_Assn.Models;
 
 namespace SSD_Assn
 {
@@ -28,6 +29,8 @@ namespace SSD_Assn
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddTransient<IMessageRespository,
+                TestThreadRepo>();
             services.AddMvc();
         }
 
@@ -53,7 +56,7 @@ namespace SSD_Assn
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Message}/{action=List}/{id?}");
             });
         }
     }

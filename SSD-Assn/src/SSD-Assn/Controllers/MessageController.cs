@@ -12,5 +12,18 @@ namespace SSD_Assn.Controllers
             repository = repo;
         }
         public ViewResult List() => View(repository.Messages);
+
+        public ViewResult Thread(string title)
+        {
+            ViewData["Title"] = title;
+            foreach (var p in repository.Messages)
+            {
+                if (p.title.Contains (title))
+                    {
+                    ViewData["Message"] = p.content;
+                    }
+            }
+            return View();
+        }
     }
 }

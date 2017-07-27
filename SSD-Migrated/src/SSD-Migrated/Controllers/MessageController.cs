@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SSD_Assn.Models;
+using SSD_Migrated.Models.MessageModels;
+using SSD_Migrated.Services;
 
-namespace SSD_Assn.Controllers
+namespace SSD_Migrated.Controllers
 {
     public class MessageController : Controller
     {

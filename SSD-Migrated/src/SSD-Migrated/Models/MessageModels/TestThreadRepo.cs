@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SSD_Migrated.Services;
 
-namespace SSD_Assn.Models
+namespace SSD_Migrated.Models.MessageModels
 {
     public class TestThreadRepo : IMessageRespository
     {

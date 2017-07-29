@@ -28,13 +28,29 @@ namespace SSD_Migrated.Controllers
             }
             return View();
         }
-        public ViewResult EditThread(int mID)
+        /*public ViewResult EditThread(int mID) DEPRECATED
         {
             return View(repository.Messages.FirstOrDefault(p => p.mId == mID));
-        }
+        } */ 
         public IActionResult CreateThread()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult CreateThread(Message message)
+        {
+            if (ModelState.IsValid)
+            {
+                /*ADD SAVEPRODUCT HERE */
+                repository.SaveMessage(message);
+                //TempData["message"] = $"Thread successfully submitted!";
+                return RedirectToAction("List");
+            }
+            else
+            {
+                //Damn theres problems with the data
+                return View("List");
+            }
         }
         /* TODO:Make the CREATE Action (IMPORTANT FOR FUNCTIONALITY OF CREATE THREAD */
     }

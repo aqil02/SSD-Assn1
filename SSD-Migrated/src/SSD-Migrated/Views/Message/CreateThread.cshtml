@@ -1,17 +1,21 @@
-﻿@model IEnumerable<SSD_Migrated.Models.MessageModels.Message>
+﻿@model SSD_Migrated.Models.MessageModels.Message
 <head>
     <title>Create a Thread</title>
 </head>
-<body>
-    <form>
-        <fieldset>
-        <legend>Submit a discussion thread</legend>
-        Title:<br />
-        <input type="text" name="title" value="" /><br />
-        Thread Content:<br />
-        <input type="text" name="content" value="" /><br />
-        <input type="submit" value="Submit" />
-        </fieldset>
+<form asp-action="CreateThread" method="post">
+    <input type="hidden" asp-for="mId" value=0 />
+    <input type="hidden" asp-for="author" value="Placeholder" />
+    <div class="form-group">
+        <label asp-for="title"></label>
+        <input asp-for="title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="content"></label>
+        <textarea asp-for="content" class="form-control"></textarea>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Submit Thread</button>
+        <a asp-action="List" asp-controller="Message" class="btn btn-default">Cancel</a>
+    </div>
 
-    </form>
-</body>
+</form>

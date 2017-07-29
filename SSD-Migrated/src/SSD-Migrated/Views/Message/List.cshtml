@@ -2,17 +2,24 @@
 <head>
     <title>Forum Homepage</title>
 </head>
-@foreach (var p in Model)
-{
-    <div>
-        <form id="@p.mID" asp-action="Thread" asp-controller="Message" method="get">
-            <input type="hidden" name="title" value="@p.title" />
-            <span class="lead">
-                <button type="submit" class="btn btn-info btn-sm">
-                    @p.title
-                </button>
-            </span>
-        </form>
-        <h6>Author:@p.author</h6>
-    </div>
-}
+<body>
+    @foreach (var p in Model)
+    {
+        <div>
+            <form id="@p.mId" asp-action="Thread" asp-controller="Message" method="get">
+                <input type="hidden" name="title" value="@p.title" />
+                <span class="lead">
+                    <button type="submit" class="btn btn-info btn-sm">
+                        @p.title
+                    </button>
+                </span>
+            </form>
+            <h6>Author:@p.author</h6>
+        </div>
+    }
+    <form asp-action="Create" asp-controller="Message" method="get">
+        <input type="button" value="Create a thread" />
+    </form>
+</body>
+
+

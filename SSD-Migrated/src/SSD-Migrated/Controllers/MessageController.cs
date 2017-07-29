@@ -47,7 +47,6 @@ namespace SSD_Migrated.Controllers
             {
                 message.author = _usermanager.GetUserName(User);
                 repository.SaveMessage(message);
-                //TempData["message"] = $"Thread successfully submitted!";
                 return RedirectToAction("List");
             }
             else
@@ -56,6 +55,5 @@ namespace SSD_Migrated.Controllers
                 return View("List");
             }
         }
-        /* TODO:Make the CREATE Action (IMPORTANT FOR FUNCTIONALITY OF CREATE THREAD */
     }
 }

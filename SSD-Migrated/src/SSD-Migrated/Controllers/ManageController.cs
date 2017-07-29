@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using SSD_Migrated.Models;
 using SSD_Migrated.Models.ManageViewModels;
 using SSD_Migrated.Services;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace SSD_Migrated.Controllers
 {
@@ -216,6 +217,7 @@ namespace SSD_Migrated.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateRecaptcha]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -237,6 +239,30 @@ namespace SSD_Migrated.Controllers
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
+        //Change Email
+        [ValidateAntiForgeryToken]
+        
+        public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                var result = await _userManager.ChangeEmailAsync(user, model.OldEmailAddress,model.ConfirmedEmailAddress);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation(3, "User changed their Email successfully.");
+                }
+                AddErrors(result);
+                return View(model);
+            }
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
 
         //
         // GET: /Manage/SetPassword
@@ -327,6 +353,8 @@ namespace SSD_Migrated.Controllers
             var message = result.Succeeded ? ManageMessageId.AddLoginSuccess : ManageMessageId.Error;
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
+
+
 
         #region Helpers
 

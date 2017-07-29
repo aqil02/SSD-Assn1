@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-SSD_Migrated-d95f0d66-5fc1-4b84-b3fe-e76c1cab1c91",
 
   "dependencies": {
@@ -11,6 +11,7 @@
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
+    "PaulMiami.AspNetCore.Mvc.Recaptcha": "1.1.1",
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
@@ -43,7 +44,8 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "PaulMiami.AspNetCore.Mvc.Recaptcha": "1.2.0"
   },
 
   "tools": {

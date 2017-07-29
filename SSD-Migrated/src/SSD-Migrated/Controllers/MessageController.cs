@@ -1,17 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using SSD_Migrated.Models.MessageModels;
 using SSD_Migrated.Services;
 using System.Linq;
+using SSD_Migrated.Models;
 
 namespace SSD_Migrated.Controllers
 {
     public class MessageController : Controller
     {
         private IMessageRespository repository; /* Private copy of message repository */
+        private UserManager<ApplicationUser> _usermanager;
 
-        public MessageController(IMessageRespository repo)
+        public MessageController(IMessageRespository repo,UserManager<ApplicationUser> usermanager)
         {
             repository = repo;
+            _usermanager = usermanager;
         }
         public ViewResult List() => View(repository.Messages);
 
@@ -41,7 +45,7 @@ namespace SSD_Migrated.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*ADD SAVEPRODUCT HERE */
+                message.author = _usermanager.GetUserName(User);
                 repository.SaveMessage(message);
                 //TempData["message"] = $"Thread successfully submitted!";
                 return RedirectToAction("List");

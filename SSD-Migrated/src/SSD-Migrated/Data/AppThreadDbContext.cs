@@ -10,6 +10,7 @@ namespace SSD_Migrated.Data
     {
         public AppThreadDbContext(DbContextOptions<AppThreadDbContext> options)
             : base(options) {}
+
         public DbSet<Message> Messages { get; set; }
     }
     

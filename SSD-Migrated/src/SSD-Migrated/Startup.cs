@@ -54,11 +54,13 @@ namespace SSD_Migrated
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppIdentity")));
+            services.AddDbContext<AppThreadDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AppThread")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            services.AddTransient<IMessageRespository, TestThreadRepo>();
+            services.AddTransient<IMessageRespository, EFMessageRepository>();
 
             services.AddMvc();
 
@@ -96,6 +98,7 @@ namespace SSD_Migrated
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            SeedData.EnsurePopulated(app);
         }
     }
 }

@@ -3,9 +3,21 @@
 <head>
     <title>@ViewData["Title"]</title>
 </head>
+
 <body>
     <div>
         <h2>@ViewData["Title"]</h2>
+        <hr />
         <h3>@ViewData["Message"]</h3>
+    </div>
+    <hr />
+    <div class="form-group">
+        <label>Reply to thread</label>
+        <form asp-action="Reply" asp-controller="Message">
+            <textarea cols="40" rows="5" name="Reply"></textarea>
+        </form>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Submit reply</button>        
     </div>
 </body>

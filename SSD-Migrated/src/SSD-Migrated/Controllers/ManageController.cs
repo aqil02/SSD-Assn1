@@ -239,10 +239,16 @@ namespace SSD_Migrated.Controllers
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
+        [HttpGet]
+        public IActionResult ChangeEmailAddress()
+        {
+            return View();
+        }
         //Change Email
-        [ValidateAntiForgeryToken]
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
         
-        public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+        public async Task<IActionResult> ChangeEmailAddress(ChangeEmailViewModel model)
         {
             if (!ModelState.IsValid)
             {

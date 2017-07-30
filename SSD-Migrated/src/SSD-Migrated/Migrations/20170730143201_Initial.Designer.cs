@@ -8,7 +8,7 @@ using SSD_Migrated.Data;
 namespace SSDMigrated.Migrations
 {
     [DbContext(typeof(AppThreadDbContext))]
-    [Migration("20170729151233_Initial")]
+    [Migration("20170730143201_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,8 @@ namespace SSDMigrated.Migrations
                     b.Property<string>("author");
 
                     b.Property<string>("content");
+
+                    b.Property<int>("tId");
 
                     b.Property<string>("title");
 

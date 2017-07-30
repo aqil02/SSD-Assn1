@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SSD_Migrated.Models.MessageModels.Message> 
+﻿@model SSD_Migrated.Models.MessageModels.ThreadViewModel
 
 <head>
     <title>@ViewData["Title"]</title>
@@ -13,8 +13,9 @@
     <hr />
     <div class="form-group">
         <label>Reply to thread</label>
-        <form asp-action="Reply" asp-controller="Message">
-            <textarea cols="40" rows="5" name="Reply"></textarea>
+        <form asp-action="Reply" asp-controller="Message" method="post">
+            <textarea asp-for="@Model.MessageObj.content" cols="40" rows="5" name="Reply"></textarea>
+            <input type="hidden" asp-for="@Model.MessageObj.title" value="" name="title" />
         </form>
     </div>
     <div class="text-center">

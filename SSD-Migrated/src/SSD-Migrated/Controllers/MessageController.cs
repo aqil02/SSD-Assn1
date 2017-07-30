@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using SSD_Migrated.Models.MessageModels;
 using SSD_Migrated.Services;
 using System.Linq;
+using System.Text.RegularExpressions;
 using SSD_Migrated.Models;
 
 namespace SSD_Migrated.Controllers
@@ -18,18 +19,21 @@ namespace SSD_Migrated.Controllers
             _usermanager = usermanager;
         }
         public ViewResult List() => View(repository.Messages);
-
+        
         public ViewResult Thread(int mid)
         {
             
             foreach (var p in repository.Messages)
             {
                 //var mid = p.mId.ToString();
+                var filteredcontent = Regex.Replace(p.content, "<.*?>", string.Empty);
+                var filteredtitle = Regex.Replace(p.title, "<.*?>", string.Empty);
                 if (p.mId == mid)
                     {
-                    ViewData["Message"] = p.content;
+                    ViewData["Message"] = filteredcontent;
                     ViewData["Author"] = p.author;
-                    ViewData["Title"] = p.title;
+                    ViewData["Title"] = filteredtitle;
+                    
                     }
             }
             return View();
@@ -52,6 +56,10 @@ namespace SSD_Migrated.Controllers
                 //Damn there's problems with the data
                 return View("List");
             }
+        }
+        public IActionResult Reply(Message message)
+        {
+
         }
     }
 }

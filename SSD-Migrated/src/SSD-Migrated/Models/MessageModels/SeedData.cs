@@ -12,7 +12,7 @@ namespace SSD_Migrated.Models.MessageModels
             AppThreadDbContext context = app.ApplicationServices.GetRequiredService<AppThreadDbContext>();
             if (!context.Messages.Any())
             {
-                context.Messages.Add(new Message { author = "System", title = "Welcome to the forums!", content = "We hope you enjoy your time browsing these forums" });
+                context.Messages.Add(new Message { author = "System", title = "Welcome to the forums!", content = "We hope you enjoy your time browsing these forums"});
             }
             context.SaveChanges();
         }

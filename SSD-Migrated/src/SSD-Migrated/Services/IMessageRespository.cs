@@ -6,5 +6,7 @@ namespace SSD_Migrated.Services
     public interface IMessageRespository
     {
         IEnumerable<Message> Messages { get; }
+
+        void SaveMessage(Message message);
     }
 }

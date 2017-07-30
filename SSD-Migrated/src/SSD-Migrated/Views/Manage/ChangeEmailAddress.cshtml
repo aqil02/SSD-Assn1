@@ -1,0 +1,34 @@
+﻿@model ChangeEmailViewModel
+@{
+    ViewData["Title"] = "Change Email Address";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<form asp-controller="Manage" asp-action="ChangeEmailAddress" method="post" class="form-horizontal">
+    <h4>Change Email Address Form</h4>
+    <hr />
+    <div class="form-group">
+        <label asp-for="EmailAddress" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="EmailAddress" class="form-control" />
+            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConfirmedEmailAddress" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="ConfirmedEmailAddress" class="form-control" />
+            <span asp-validation-for="ConfirmedEmailAddress" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Change Email Address</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

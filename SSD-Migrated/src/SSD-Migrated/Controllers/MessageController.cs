@@ -19,23 +19,21 @@ namespace SSD_Migrated.Controllers
         }
         public ViewResult List() => View(repository.Messages);
 
-        public ViewResult Thread(string title)
+        public ViewResult Thread(int mid)
         {
-            ViewData["Title"] = title;
+            
             foreach (var p in repository.Messages)
             {
-                if (p.title.Contains (title))
+                //var mid = p.mId.ToString();
+                if (p.mId == mid)
                     {
                     ViewData["Message"] = p.content;
                     ViewData["Author"] = p.author;
+                    ViewData["Title"] = p.title;
                     }
             }
             return View();
         }
-        /*public ViewResult EditThread(int mID) DEPRECATED
-        {
-            return View(repository.Messages.FirstOrDefault(p => p.mId == mID));
-        } */ 
         public IActionResult CreateThread()
         {
             return View();
@@ -51,7 +49,7 @@ namespace SSD_Migrated.Controllers
             }
             else
             {
-                //Damn theres problems with the data
+                //Damn there's problems with the data
                 return View("List");
             }
         }

@@ -11,14 +11,16 @@
         <h3>@ViewData["Message"]</h3>
     </div>
     <hr />
-    <div class="form-group">
-        <label>Reply to thread</label>
-        <form asp-action="Reply" asp-controller="Message" method="post">
-            <textarea asp-for="@Model.MessageObj.content" cols="40" rows="5" name="Reply"></textarea>
-            <input type="hidden" asp-for="@Model.MessageObj.title" value="" name="title" />
-        </form>
-    </div>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Submit reply</button>        
-    </div>
+    <label>Reply to Thread</label>
+    <form asp-action="Reply" asp-controller="Message" method="post">
+        <div class="form-group">
+            <textarea asp-for="MessageObj.content" class="form-control" cols="40" rows="5"></textarea>
+            <input type="hidden" asp-for="MessageObj.title" value="" name="title" />
+            <input type="hidden" asp-for="MessageObj.author" value="Placeholder"  />
+            <input type="hidden" asp-for="MessageObj.tId" value=@ViewData["tId"] />          
+        </div>
+        <div class="text-left">
+            <button class="btn btn-primary" type="submit">Submit reply</button>
+        </div>
+    </form>
 </body>

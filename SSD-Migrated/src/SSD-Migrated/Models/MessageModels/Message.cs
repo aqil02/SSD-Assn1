@@ -16,5 +16,6 @@ namespace SSD_Migrated.Models.MessageModels
         public string content { get; set; }
         /* TODO: Timestamp */
         public int tId { get; set; } = 0;
+        public int pId { get; set;}
     }
 }

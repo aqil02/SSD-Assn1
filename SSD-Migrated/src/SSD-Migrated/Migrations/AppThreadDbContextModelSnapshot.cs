@@ -25,6 +25,8 @@ namespace SSDMigrated.Migrations
 
                     b.Property<string>("content");
 
+                    b.Property<int>("pId");
+
                     b.Property<int>("tId");
 
                     b.Property<string>("title");

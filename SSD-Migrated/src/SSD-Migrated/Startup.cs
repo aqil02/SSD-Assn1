@@ -66,9 +66,9 @@ namespace SSD_Migrated
 
             if (env.IsDevelopment())
             {
-                /*app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();*/
+                app.UseBrowserLink();
                 app.UseExceptionHandler("/Home/Error");
             }
             else

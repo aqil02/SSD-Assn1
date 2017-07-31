@@ -29,13 +29,15 @@ namespace SSD_Migrated.Controllers
                 //HTML Tag Filters
                 var filteredcontent = Regex.Replace(p.content, "<.*?>", string.Empty);
                 var filteredtitle = Regex.Replace(p.title, "<.*?>", string.Empty);
+                var threadlist = repository.Messages.Where(x => x.tId == p.tId);
+                threadlist = threadlist.OrderBy(x => x.pId);
                 if (p.mId == mid)
                     {
                     ViewData["Message"] = filteredcontent;
                     ViewData["Author"] = p.author;
                     ViewData["Title"] = filteredtitle;
                     ViewData["tId"] = p.tId;
-                    
+                    ViewData["threadlist"] = threadlist;            
                     }
             }
             return View();

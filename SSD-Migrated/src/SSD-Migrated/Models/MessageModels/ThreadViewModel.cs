@@ -7,7 +7,7 @@ namespace SSD_Migrated.Models.MessageModels
 {
     public class ThreadViewModel
     {
-        public IEnumerable<Message> Messages { get; set; }
-        public Message MessageObj { get; set; }
+        public IEnumerable<Message> MessagesI { get; set; }
+        public Message Message { get; set; }
     }
 }

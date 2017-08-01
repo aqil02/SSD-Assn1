@@ -1,5 +1,6 @@
 ﻿@model SSD_Migrated.Models.MessageModels.ThreadViewModel
 
+@inject SignInManager<ApplicationUser> SignInManager
 <head>
     <title>@ViewData["Title"]</title>
 </head>
@@ -17,16 +18,24 @@
 
     }
     <hr />
-    <label>Reply to Thread</label>
-    <form asp-action="Reply" asp-controller="Message" method="post">
-        <div class="form-group">
-            <textarea asp-for="Message.content" class="form-control" cols="40" rows="5"></textarea>
-            <input type="hidden" asp-for="Message.title" value="Placeholder" />
-            <input type="hidden" asp-for="Message.author" value="Placeholder"  />
-            <input type="hidden" asp-for="Message.tId" value=@ViewData["tId"] />                    
-        </div>
-        <div class="text-left">
-            <button class="btn btn-primary" type="submit">Submit reply</button>
-        </div>
-    </form>
+    
+
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <label>Reply to Thread</label>
+        <form asp-action="Reply" asp-controller="Message" method="post">
+            <div class="form-group">
+                <textarea asp-for="Message.content" class="form-control" cols="40" rows="5"></textarea>
+                <input type="hidden" asp-for="Message.title" value="Placeholder" />
+                <input type="hidden" asp-for="Message.author" value="Placeholder" />
+                <input type="hidden" asp-for="Message.tId" value=@ViewData["tId"] />
+            </div>
+            <div class="text-left">
+                <button class="btn btn-primary" type="submit">Submit reply</button>
+            </div>
+        </form>
+
+    }
 </body>

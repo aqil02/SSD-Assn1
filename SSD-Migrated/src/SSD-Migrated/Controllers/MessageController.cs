@@ -13,32 +13,35 @@ namespace SSD_Migrated.Controllers
     {
         private IMessageRespository repository; /* Private copy of message repository */
         private UserManager<ApplicationUser> _usermanager;
+        private SignInManager<ApplicationUser> _signinmanager;
 
-        public MessageController(IMessageRespository repo,UserManager<ApplicationUser> usermanager)
+        public MessageController(IMessageRespository repo,UserManager<ApplicationUser> usermanager,SignInManager<ApplicationUser> signinmanager)
         {
             repository = repo;
             _usermanager = usermanager;
+            _signinmanager = signinmanager;
         }
         public ViewResult List() => View(repository.Messages);
         
         public ViewResult Thread(int tid)
         {
-            
+            var threadlist = repository.Messages.Where(x => x.tId == tid); //Get all messages with same thread number
+            threadlist = threadlist.OrderBy(x => x.pId); // Position them correctly
+            ViewData["threadlist"] = threadlist;
             foreach (var p in repository.Messages)
             {
                 //HTML Tag Filters
                 var filteredcontent = Regex.Replace(p.content, "<.*?>", string.Empty);
                 var filteredtitle = Regex.Replace(p.title, "<.*?>", string.Empty);
-                var threadlist = repository.Messages.Where(x => x.tId == p.tId);
-                threadlist = threadlist.OrderBy(x => x.pId);
+
                 if (p.tId == tid)
                     {
                     ViewData["Message"] = filteredcontent;
                     ViewData["Author"] = p.author;
                     ViewData["Title"] = filteredtitle;
-                    ViewData["tId"] = p.tId;
-                    ViewData["threadlist"] = threadlist;
-                    ViewData["mId"] = p.mId;        
+                    ViewData["tId"] = p.tId;                 
+                    ViewData["mId"] = p.mId;
+                    ViewData["signin"] = _signinmanager.IsSignedIn(User);
                     }
             }
             return View();

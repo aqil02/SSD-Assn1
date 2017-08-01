@@ -11,6 +11,7 @@
     {
         <div>
             <h3>@p.content</h3>
+            <h4>@p.author</h4>
         </div>
         <hr />
 
@@ -22,7 +23,7 @@
             <textarea asp-for="Message.content" class="form-control" cols="40" rows="5"></textarea>
             <input type="hidden" asp-for="Message.title" value="Placeholder" />
             <input type="hidden" asp-for="Message.author" value="Placeholder"  />
-            <input type="hidden" asp-for="Message.tId" value=@ViewData["tId"] />          
+            <input type="hidden" asp-for="Message.tId" value=@ViewData["tId"] />                    
         </div>
         <div class="text-left">
             <button class="btn btn-primary" type="submit">Submit reply</button>

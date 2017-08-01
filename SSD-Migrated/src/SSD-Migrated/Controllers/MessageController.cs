@@ -21,7 +21,7 @@ namespace SSD_Migrated.Controllers
         }
         public ViewResult List() => View(repository.Messages);
         
-        public ViewResult Thread(int mid)
+        public ViewResult Thread(int tid)
         {
             
             foreach (var p in repository.Messages)
@@ -31,13 +31,14 @@ namespace SSD_Migrated.Controllers
                 var filteredtitle = Regex.Replace(p.title, "<.*?>", string.Empty);
                 var threadlist = repository.Messages.Where(x => x.tId == p.tId);
                 threadlist = threadlist.OrderBy(x => x.pId);
-                if (p.mId == mid)
+                if (p.tId == tid)
                     {
                     ViewData["Message"] = filteredcontent;
                     ViewData["Author"] = p.author;
                     ViewData["Title"] = filteredtitle;
                     ViewData["tId"] = p.tId;
-                    ViewData["threadlist"] = threadlist;            
+                    ViewData["threadlist"] = threadlist;
+                    ViewData["mId"] = p.mId;        
                     }
             }
             return View();
@@ -78,7 +79,7 @@ namespace SSD_Migrated.Controllers
             message.pId = finalIdObj;
             //Finally save the message to the database
             repository.SaveMessage(message);
-            return RedirectToAction("Thread",new { tId = message.tId }); //Change to bring back to current thread (Maybe pass current mId to Reply?
+            return RedirectToAction("Thread", new { tid = message.tId }); //Change to bring back to current thread (Maybe pass current mId to Reply?
         }
         
     }

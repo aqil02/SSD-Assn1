@@ -5,18 +5,21 @@
 <body>
     @foreach (var p in Model)
     {
-        <div>
-            <form id="@p.mId" asp-action="Thread" asp-controller="Message" method="get">
-                <input type="hidden" name="mid" value="@p.mId" />
-                <span class="lead">
-                    <button type="submit" class="btn btn-info btn-sm">
-                        @p.title
-                    </button>
-                </span>
-            </form>
-            <h6>Author:@p.author</h6>
-        </div>
-    }
+        @if (p.pId == 0)
+        {
+            <div>
+                <form id="@p.mId" asp-action="Thread" asp-controller="Message" method="get">
+                    <input type="hidden" name="tid" value="@p.tId" />
+                    <span class="lead">
+                        <button type="submit" class="btn btn-info btn-sm">
+                            @p.title
+                        </button>
+                    </span>
+                </form>
+                <h6>Author:@p.author</h6>
+            </div>
+            }
+        }
     <form asp-action="CreateThread" asp-controller="Message" method="get">
         <input type="submit" value="Create a thread" />
     </form>

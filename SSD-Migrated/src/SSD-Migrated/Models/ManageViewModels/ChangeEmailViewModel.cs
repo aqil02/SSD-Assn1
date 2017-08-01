@@ -19,5 +19,7 @@ namespace SSD_Migrated.Models.ManageViewModels
         [Display(Name = "Confirm new Email Address ")]
         [Compare("New Email Address", ErrorMessage = "The new Email Address and confirmed Email Address do not match.")]
         public string ConfirmedEmailAddress { get; set; }
+
+        public string token { get; set; }
     }
 }

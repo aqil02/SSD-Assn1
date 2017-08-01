@@ -44,8 +44,10 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "HtmlSanitizer": "3.5.169-beta"
+    "HtmlSanitizer": "3.5.169-beta",
+    "FluentEmail.Mailgun": "2.1.0"
   },
+     
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",

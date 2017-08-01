@@ -3,7 +3,7 @@
     <title>Create a Thread</title>
 </head>
 <form asp-action="CreateThread" method="post">
-    <input type="hidden" asp-for="mId" />
+    <input type="hidden" asp-for="mId" value=0 />
     <input type="hidden" asp-for="author" value="Placeholder" />
     <div class="form-group">
         <label asp-for="title">Title</label>

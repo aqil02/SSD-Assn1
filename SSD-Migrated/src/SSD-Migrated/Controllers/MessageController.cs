@@ -56,7 +56,7 @@ namespace SSD_Migrated.Controllers
             if (ModelState.IsValid)
             {
                 message.author = _usermanager.GetUserName(User);
-                message.pId = 0;
+                message.pId = 0; //Start of thread thus position 0
                 //Change tId to be representitive of each thread
                 var newtId = repository.Messages.Max(x => x.tId);
                 newtId = newtId + 1;

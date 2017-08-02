@@ -1,11 +1,47 @@
-﻿@model IEnumerable<SSD_Migrated.Models.MessageModels.Message> 
+﻿@model SSD_Migrated.Models.MessageModels.ThreadViewModel
 
+@inject SignInManager<ApplicationUser> SignInManager
 <head>
     <title>@ViewData["Title"]</title>
 </head>
+
 <body>
+
+    @{ var threadlist = ViewData["threadlist"] as IEnumerable<SSD_Migrated.Models.MessageModels.Message>; }
     <div>
         <h2>@ViewData["Title"]</h2>
-        <h3>@ViewData["Message"]</h3>
     </div>
+    @foreach (var p in threadlist)
+    {
+        <div>
+            <h5>@p.content</h5>
+            <h6>By: @p.author</h6>
+        </div>
+        <hr />
+
+    }
+    <hr />
+    
+
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <label>Reply to Thread</label>
+        <form asp-action="Reply" asp-controller="Message" method="post">
+            <div class="form-group">
+                <textarea asp-for="Message.content" class="form-control" cols="40" rows="5"></textarea>
+                <input type="hidden" asp-for="Message.title" value="Placeholder" />
+                <input type="hidden" asp-for="Message.author" value="Placeholder" />
+                <input type="hidden" asp-for="Message.tId" value=@ViewData["tId"] />
+            </div>
+            <div class="text-left">
+                <button class="btn btn-primary" type="submit">Submit reply</button>
+            </div>
+        </form>
+
+    }
 </body>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

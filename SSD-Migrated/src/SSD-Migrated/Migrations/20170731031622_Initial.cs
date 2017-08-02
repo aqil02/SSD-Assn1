@@ -17,6 +17,8 @@ namespace SSDMigrated.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     author = table.Column<string>(nullable: true),
                     content = table.Column<string>(nullable: true),
+                    pId = table.Column<int>(nullable: false),
+                    tId = table.Column<int>(nullable: false),
                     title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

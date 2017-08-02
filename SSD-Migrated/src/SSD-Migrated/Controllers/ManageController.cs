@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using FluentEmail.Core;
+using FluentEmail.Mailgun;
 using Microsoft.Extensions.Logging;
 using SSD_Migrated.Models;
 using SSD_Migrated.Models.ManageViewModels;
@@ -239,35 +241,14 @@ namespace SSD_Migrated.Controllers
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
+
         [HttpGet]
         public IActionResult ChangeEmailAddress()
         {
             return View();
         }
-        //Change Email
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        
-        public async Task<IActionResult> ChangeEmailAddress(ChangeEmailViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var user = await GetCurrentUserAsync();
-            if (user != null)
-            {
-                var result = await _userManager.ChangeEmailAsync(user, model.OldEmailAddress,model.ConfirmedEmailAddress);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User changed their Email successfully.");
-                }
-                AddErrors(result);
-                return View(model);
-            }
-            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
-        }
+
+
 
 
         //

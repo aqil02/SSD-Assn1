@@ -11,7 +11,6 @@
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
-    "PaulMiami.AspNetCore.Mvc.Recaptcha": "1.1.1",
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
@@ -46,7 +45,7 @@
       "type": "build"
     },
 
-    "PaulMiami.AspNetCore.Mvc.Recaptcha": "1.2.0"
+    "PaulMiami.AspNetCore.Mvc.Recaptcha": "1.2.0",
 
     "HtmlSanitizer": "3.4.156",
     "FluentEmail.Mailgun": "2.1.0",

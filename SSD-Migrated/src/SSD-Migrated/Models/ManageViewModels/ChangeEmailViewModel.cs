@@ -11,15 +11,22 @@ namespace SSD_Migrated.Models.ManageViewModels
         [Required(ErrorMessage =" The email address is required")]
         [EmailAddress(ErrorMessage ="Invalid Email Address")]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "New Email Address")]
-        public string EmailAddress { get; set; }
+        [Display(Name = "Old Email Address")]
+        //[Compare("Old Email Address", ErrorMessage = "The old email do not match.")]
+        public string OldEmailAddress { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Display(Name = "Confirm new Email Address ")]
+ 
+        
+        public string ConfirmedEmailAddress { get; set; }
+        
+
         [Compare("EmailAddress", ErrorMessage = "The new Email Address and confirmed Email Address do not match.")]
         public string ConfirmedEmailAddress { get; set; }
 
         public string token { get; set; }
+
     }
 }

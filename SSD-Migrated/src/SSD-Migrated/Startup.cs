@@ -16,6 +16,8 @@ using SSD_Migrated.Models;
 using SSD_Migrated.Services;
 using SSD_Migrated.Models.MessageModels;
 
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
+
 namespace SSD_Migrated
 {
     public class Startup
@@ -37,12 +39,21 @@ namespace SSD_Migrated
             Configuration = builder.Build();
         }
 
+        
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddMvc();
+
+            services.AddRecaptcha(new RecaptchaOptions
+            {
+                SiteKey = "6LfG9yoUAAAAAOenZ6PBNZDhqJNDlKkkoMyqV7w1",
+                SecretKey = "6LfG9yoUAAAAAKgo4Rp6A-pxLlapnWDbTzeyJBxD"
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppIdentity")));
             services.AddDbContext<AppThreadDbContext>(options =>

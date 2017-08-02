@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using SSD_Migrated.Models;
 using SSD_Migrated.Models.ManageViewModels;
 using SSD_Migrated.Services;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace SSD_Migrated.Controllers
 {
@@ -218,6 +219,7 @@ namespace SSD_Migrated.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateRecaptcha]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -239,52 +241,15 @@ namespace SSD_Migrated.Controllers
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
-        //
-        // GET: /Manage/ChangeEmail
+
         [HttpGet]
         public IActionResult ChangeEmailAddress()
         {
             return View();
         }
 
-        //
-        // POST: /Manage/ChangeEmail
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangeEmailAddress(ChangeEmailViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var user = await GetCurrentUserAsync();
-            if (user != null)
-            {
-                
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);                
-                var sender = new MailgunSender("sandbox6c5301e9b77845c09b609f82666dc2b2.mailgun.org", "key-1bc571d9b1c0f4016dba1f4ce189059e");
-                Email.DefaultSender = sender;
 
-                var email = Email.From("Mailgun Sandbox <postmaster@sandbox6c5301e9b77845c09b609f82666dc2b2.mailgun.org>").To(model.EmailAddress,"Recipient").Subject("Verify Email Change")
-                    .Body("Token:" + token + "Email:" + model.EmailAddress);
 
-                email.Send();
-                
-                _logger.LogInformation("User Email Confirmation Sent");
-                /*var result = await _userManager.ChangePasswordAsync(user, model.EmailAddress, model.token);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User changed their password successfully.");
-                    return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
-                }
-
-                AddErrors(result);*/
-
-                return View(model);
-            }
-            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
-        }
 
         //
         // GET: /Manage/SetPassword
@@ -375,6 +340,8 @@ namespace SSD_Migrated.Controllers
             var message = result.Succeeded ? ManageMessageId.AddLoginSuccess : ManageMessageId.Error;
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
+
+
 
         #region Helpers
 

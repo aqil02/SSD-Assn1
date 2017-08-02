@@ -41,8 +41,17 @@
             <button type="submit" class="btn btn-default">Register</button>
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <recaptcha />
+            <span class="text-danger" id="recaptchaErrorMessage"></span>
+        </div>
+    </div>
+    <span style="display:inline-block;font-size:20px;margin:20px;border:1px solid #4800ff">
+        @ViewBag.Message
+    </span>
 </form>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
 }

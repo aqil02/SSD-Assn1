@@ -1,9 +1,10 @@
 ﻿@model SSD_Migrated.Models.MessageModels.Message
+
 <head>
     <title>Create a Thread</title>
 </head>
 <form asp-action="CreateThread" method="post">
-    <input type="hidden" asp-for="mId" />
+    <input type="hidden" asp-for="mId" value=0 />
     <input type="hidden" asp-for="author" value="Placeholder" />
     <div class="form-group">
         <label asp-for="title">Title</label>
@@ -13,8 +14,14 @@
         <label asp-for="content">Content</label>
         <textarea asp-for="content" class="form-control"></textarea>
     </div>
+    
+    
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Submit Thread</button>
         <a asp-action="List" asp-controller="Message" class="btn btn-default">Cancel</a>
     </div>
+    
 </form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

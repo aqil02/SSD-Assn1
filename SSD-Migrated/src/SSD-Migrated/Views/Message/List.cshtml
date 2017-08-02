@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<SSD_Migrated.Models.MessageModels.Message> 
+@inject SignInManager<ApplicationUser> SignInManager
 <head>
     <title>Forum Homepage</title>
 </head>
@@ -20,9 +21,15 @@
             </div>
             }
         }
-    <form asp-action="CreateThread" asp-controller="Message" method="get">
-        <input type="submit" value="Create a thread" />
-    </form>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form asp-action="CreateThread" asp-controller="Message" method="get">
+            <input type="submit" value="Create a thread" />
+        </form>
+    }
 </body>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
 
 

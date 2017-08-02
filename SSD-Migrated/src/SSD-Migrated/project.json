@@ -44,8 +44,10 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "HtmlSanitizer": "3.5.169-beta",
-    "FluentEmail.Mailgun": "2.1.0"
+    "HtmlSanitizer": "3.4.156",
+    "FluentEmail.Mailgun": "2.1.0",
+    "Microsoft.AspNetCore.Rewrite": "1.0.2"
+    
   },
      
 

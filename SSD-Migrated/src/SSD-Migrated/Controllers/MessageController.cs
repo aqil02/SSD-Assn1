@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using SSD_Migrated.Models;
+using Ganss.XSS;
 
 namespace SSD_Migrated.Controllers
 {
@@ -28,11 +29,12 @@ namespace SSD_Migrated.Controllers
             var threadlist = repository.Messages.Where(x => x.tId == tid); //Get all messages with same thread number
             threadlist = threadlist.OrderBy(x => x.pId); // Position them correctly
             ViewData["threadlist"] = threadlist;
+            var firstobj = threadlist.FirstOrDefault();
             foreach (var p in repository.Messages)
             {
                 //HTML Tag Filters
                 var filteredcontent = Regex.Replace(p.content, "<.*?>", string.Empty);
-                var filteredtitle = Regex.Replace(p.title, "<.*?>", string.Empty);
+                var filteredtitle = Regex.Replace(firstobj.title, "<.*?>", string.Empty);
 
                 if (p.tId == tid)
                     {
@@ -53,6 +55,11 @@ namespace SSD_Migrated.Controllers
         [HttpPost]
         public IActionResult CreateThread(Message message)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedcontent = sanitizer.Sanitize(message.content);
+            var sanitizedtitle = sanitizer.Sanitize(message.title);
+            message.title = sanitizedtitle;
+            message.content = sanitizedcontent;
             if (ModelState.IsValid)
             {
                 message.author = _usermanager.GetUserName(User);
@@ -73,6 +80,13 @@ namespace SSD_Migrated.Controllers
         [HttpPost]
         public IActionResult Reply(Message message)
         {
+            //Sanitize Title and Content
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedtitle = sanitizer.Sanitize(message.title);
+            var sanitizedcontent = sanitizer.Sanitize(message.content);
+            //Change to Sanitized
+            message.title = sanitizedtitle;
+            message.content = sanitizedcontent;
             //Change Author to currrent-user here
             message.author = _usermanager.GetUserName(User);
             //Change tId to be max+1 here where mId is the same as the curent thread(Yup definitely need to pass current mId)

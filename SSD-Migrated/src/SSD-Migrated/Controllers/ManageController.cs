@@ -242,28 +242,35 @@ namespace SSD_Migrated.Controllers
         //
         // GET: /Manage/ChangeEmail
         [HttpGet]
-        public IActionResult ChangeEmail()
+        public IActionResult ChangeEmailAddress()
         {
             return View();
         }
 
         //
-        // POST: /Manage/ChangePassword
+        // POST: /Manage/ChangeEmail
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+        public async Task<IActionResult> ChangeEmailAddress(ChangeEmailViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             var user = await GetCurrentUserAsync();
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var sender = new MailgunSender("sandbox6c5301e9b77845c09b609f82666dc2b2.mailgun.org", "key-1bc571d9b1c0f4016dba1f4ce189059e");
-            var email = Email.From("Mailgun Sandbox <postmaster@sandbox6c5301e9b77845c09b609f82666dc2b2.mailgun.org>").To(model.EmailAddress).Subject("Verify Email Change")
-                .Body("Token:"+token+"Email:"+model.EmailAddress);
             if (user != null)
             {
+                
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);                
+                var sender = new MailgunSender("sandbox6c5301e9b77845c09b609f82666dc2b2.mailgun.org", "key-1bc571d9b1c0f4016dba1f4ce189059e");
+                Email.DefaultSender = sender;
+
+                var email = Email.From("Mailgun Sandbox <postmaster@sandbox6c5301e9b77845c09b609f82666dc2b2.mailgun.org>").To(model.EmailAddress,"Recipient").Subject("Verify Email Change")
+                    .Body("Token:" + token + "Email:" + model.EmailAddress);
+
+                email.Send();
+                
+                _logger.LogInformation("User Email Confirmation Sent");
                 /*var result = await _userManager.ChangePasswordAsync(user, model.EmailAddress, model.token);
                 if (result.Succeeded)
                 {
@@ -273,7 +280,7 @@ namespace SSD_Migrated.Controllers
                 }
 
                 AddErrors(result);*/
-                
+
                 return View(model);
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });

@@ -8,11 +8,14 @@
 <body>
 
     @{ var threadlist = ViewData["threadlist"] as IEnumerable<SSD_Migrated.Models.MessageModels.Message>; }
+    <div>
+        <h2>@ViewData["Title"]</h2>
+    </div>
     @foreach (var p in threadlist)
     {
         <div>
-            <h3>@p.content</h3>
-            <h4>By: @p.author</h4>
+            <h5>@p.content</h5>
+            <h6>By: @p.author</h6>
         </div>
         <hr />
 
@@ -39,3 +42,6 @@
 
     }
 </body>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,4 +1,5 @@
 ﻿@model SSD_Migrated.Models.MessageModels.Message
+
 <head>
     <title>Create a Thread</title>
 </head>
@@ -13,8 +14,14 @@
         <label asp-for="content">Content</label>
         <textarea asp-for="content" class="form-control"></textarea>
     </div>
+    
+    
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Submit Thread</button>
         <a asp-action="List" asp-controller="Message" class="btn btn-default">Cancel</a>
     </div>
+    
 </form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

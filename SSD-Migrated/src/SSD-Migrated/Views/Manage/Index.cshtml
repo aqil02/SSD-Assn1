@@ -26,7 +26,6 @@
         <dd>
             <a asp-controller="Manage" asp-action="ChangeEmailAddress" class="btn-bracketed">Change</a> 
         </dd>
-        <dt>External Logins:</dt>
 
        <!-- <dt>Email:</dt>
 
@@ -34,7 +33,7 @@
             <a asp-controller="Manage" asp-action="ChangeEmailAddress" class="btn-bracketed">Change</a>
         </dd>
         <dt>External Logins:</dt>
-        <dd>  -->
+        <dd>  
             
 
             @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">Manage</a>
@@ -78,7 +77,8 @@
                     <form asp-controller="Manage" asp-action="EnableTwoFactorAuthentication" method="post" class="form-horizontal">
                         <button type="submit" class="btn-link btn-bracketed">Enable</button> Disabled
                     </form>
-                }*@
-        </dd>
+                }
+            *@-->
+        
     </dl>
 </div>

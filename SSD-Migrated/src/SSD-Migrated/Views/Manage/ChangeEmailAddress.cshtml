@@ -33,6 +33,12 @@
             <span class="text-danger" id="recaptchaErrorMessage"></span>
         </div>
     </div>
+    <div>
+        @if(ViewData["Success"] == "1")
+        { 
+            <h5>Email Change Success!</h5>
+        };
+    </div>
     <span style="display:inline-block;font-size:20px;margin:20px;border:1px solid #4800ff">
         @ViewBag.Message
     </span>

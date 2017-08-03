@@ -247,6 +247,32 @@ namespace SSD_Migrated.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmailAddress(ChangeEmailViewModel email)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(email);
+            }
+            if (email != null)
+            {
+                var user = await GetCurrentUserAsync();
+                var token = _userManager.GenerateChangeEmailTokenAsync(user, email.ConfirmedEmailAddress);
+                var finaltoken = await token;
+                var result = await _userManager.ChangeEmailAsync(user, email.ConfirmedEmailAddress, finaltoken);
+                if (result.Succeeded)
+                {
+                    ViewData["Success"] = "1";
+                }
+                else
+                {
+                    ViewData["Success"] = "2";
+                }
+                return View(email);
+            }
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+
+        }
 
 
 

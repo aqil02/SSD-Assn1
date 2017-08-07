@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using SSD_Migrated.Models;
 using SSD_Migrated.Models.AccountViewModels;
 using SSD_Migrated.Services;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace SSD_Migrated.Controllers
 {
@@ -52,6 +53,7 @@ namespace SSD_Migrated.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [ValidateRecaptcha]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;

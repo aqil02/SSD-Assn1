@@ -33,16 +33,16 @@
             <span class="text-danger" id="recaptchaErrorMessage"></span>
         </div>
     </div>
-    <div>
-        @if(ViewData["Success"] == "1")
-        { 
-            <h5>Email Change Success!</h5>
-        };
-    </div>
-    <span style="display:inline-block;font-size:20px;margin:20px;border:1px solid #4800ff">
-        @ViewBag.Message
-    </span>
+        <span style="display:inline-block;font-size:20px;margin:20px;border:1px solid #4800ff">
+            @ViewBag.Message
+        </span>
 </form>
+<div>
+    @if (ViewData["Success"] == "1")
+    {
+        <h5>Email Change Success!</h5>
+    }
+</div>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 @section Scripts {
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />

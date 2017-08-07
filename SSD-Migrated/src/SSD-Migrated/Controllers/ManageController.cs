@@ -248,6 +248,8 @@ namespace SSD_Migrated.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateRecaptcha]
         public async Task<IActionResult> ChangeEmailAddress(ChangeEmailViewModel email)
         {
             if (!ModelState.IsValid)

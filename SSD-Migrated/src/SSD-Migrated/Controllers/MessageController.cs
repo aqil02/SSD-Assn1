@@ -5,6 +5,7 @@ using SSD_Migrated.Services;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using SSD_Migrated.Models;
 using Ganss.XSS;
 
@@ -23,6 +24,7 @@ namespace SSD_Migrated.Controllers
             _signinmanager = signinmanager;
         }
         public ViewResult List() => View(repository.Messages);
+        
         
         public ViewResult Thread(int tid)
         {
@@ -48,11 +50,13 @@ namespace SSD_Migrated.Controllers
             }
             return View();
         }
+        [Authorize]
         public IActionResult CreateThread()
         {
             return View();
         }
         [HttpPost]
+        [Authorize]
         public IActionResult CreateThread(Message message)
         {
             var sanitizer = new HtmlSanitizer();
@@ -78,6 +82,7 @@ namespace SSD_Migrated.Controllers
             }
         }
         [HttpPost]
+        [Authorize]
         public IActionResult Reply(Message message)
         {
             //Sanitize Title and Content

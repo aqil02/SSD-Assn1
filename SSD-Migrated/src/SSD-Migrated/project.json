@@ -49,7 +49,8 @@
 
     "HtmlSanitizer": "3.4.156",
     "FluentEmail.Mailgun": "2.1.0",
-    "Microsoft.AspNetCore.Rewrite": "1.0.2"
+    "Microsoft.AspNetCore.Rewrite": "1.0.2",
+    "AspNetCoreRateLimit": "1.0.5"
     
 
   },

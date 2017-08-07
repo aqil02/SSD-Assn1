@@ -15,8 +15,8 @@ using SSD_Migrated.Data;
 using SSD_Migrated.Models;
 using SSD_Migrated.Services;
 using SSD_Migrated.Models.MessageModels;
-
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using AspNetCoreRateLimit;
 
 namespace SSD_Migrated
 {
@@ -74,7 +74,14 @@ namespace SSD_Migrated
             services.Configure<MvcOptions>(options =>
            {
                options.Filters.Add(new RequireHttpsAttribute());
-           }); 
+           });
+            //Rate Limit
+            services.AddOptions();
+            services.AddMemoryCache();
+            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
+            services.Configure<IpRateLimitPolicies>(Configuration.GetSection("IpRateLimitPolicies"));
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +89,7 @@ namespace SSD_Migrated
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            app.UseIpRateLimiting();
 
             var options = new RewriteOptions().AddRedirectToHttps();
 
@@ -102,7 +110,7 @@ namespace SSD_Migrated
             app.UseStaticFiles();
 
             app.UseIdentity();
-
+            
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>
